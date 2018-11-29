@@ -1,0 +1,84 @@
+step 1 :  create app.get route to render page app.get then we have a page
+step 2 : create app.post route to render rge search bar where we passin the req and responce 
+this should also be in views so we have a page routepost search bar should be the body and then
+we render the reqb.body to a the par variable.
+
+GIT branch develop is when you make a new branch
+git log gets every on the screen  and we can switch between save points
+
+by git committ -m "bingo this is save point bingo
+git checkout takes you back
+
+remake the conflicts often and avoid working on same file
+
+git log shows you the history
+
+in the response get results  then result 
+
+then loop over result to get zestimate
+
+
+result.response.results.result[0].zestimate[0].amount[0]
+
+
+//console.log(result.response.results.result[0].zestimate[0].amount[0])
+       // console.log(result)
+       //console.log(result.response.results.result[0].zestimate[0].amount[0])
+      // result.response.results.result[0].zestimate[0].amount[0]["_"]
+
+      // {value :result.response.results.result[0].zestimate[0]
+
+
+
+        // console.log(result.response.results.result[0])
+        
+   // res.render('estimatesResult', {zestimateval :result.response.results.result[0].zestimate})
+        
+
+       // debugger 
+       // console.log(result.response.results)
+       //console.log(req)
+
+      // console.log(result.response.results.result[0].address)
+     // console.log(result.response.results.result[0].zestimate[0].amount[0]["_"])
+
+    // console.log(result.response.results.result[0].zestimate[0].amount[0])  // amount and currency
+       
+     // console.log(result)
+       //console.log(result.response.results.result[0].zestimate[0].amount[0])
+      // result.response.results.result[0].zestimate[0].amount[0]["_"]
+      // {value :result.response.results.result[0].zestimate[0]
+      // res.render('estimatesResult', {value :result.response.results.result[0].zestimate[0].amount[0]})
+
+
+         //debugger
+        //console.log(result)
+
+    //     comparables: ["http://www.zillow.com/homes/comps/2122572307_zpid/"]
+    // homedetails: ["https://www.zillow.com/homedetails/1419-Westwood-Blvd-Los-Angeles-CA-90024/2122572307_zpid/"]
+    // mapthishome: ["http://www.zillow.com/homes/2122572307_zpid/"]
+
+    // result.response.results.result[0].links[0].comparables[0]
+   // result.response.results.result[0].links[0].mapthishome[0]
+
+   //result.response.results.result[0].localRealEstate[0].region[0].zindexValue[0]
+
+
+
+ //const ZWz1grjn2l63nv_4234r = process.env.X1-ZWz1grjn2l63nv_4234r 
+
+// const zillow = new Zillow("X1-ZWz1grjn2l63nv_4234r")
+
+// const parameters = { zpid: 1111111};
+
+
+
+// let params = {
+//     address : req.body',
+//     citystatezip: 'Boulder CO 80304'
+// }
+
+Question
+
+how to i set the Nav bar handle bar on all pages
+the login link does not display

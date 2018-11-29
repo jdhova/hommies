@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+     {{>navbar}}
+
+{{!-- <div class="row search">
+  <div class="col-sm-8 col-sm-offset-2">
+     <form method="post" action="/estimates">
+            <div class="input-group">
+               <input type="text" name="address" class="form-control input-sm">
+               <input type="text" name="citystatezip">
+              <span class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+              </span>
+                &nbsp;<a href="#">Search Help</a>
+            </div>
+    </form>
+  </div>
+</div>
+ --}}
+{{!-- 
+
+
+<input type="text" name="search" placeholder="Search.."> --}}
+
+
+
+
+    <form method="post" action="/estimates">       
+             
+        <input id = "address" type="text" name="address" placeholder="Address.."> <br>
+
+        <input id = "citystatezip" type="text" name="citystatezip" placeholder="City State Zipcode.."> <br>
+     
+        <button id = "searchbtn" type="submit">Search</button>
+    </form>
+
+    
+</body>
+</html>
+
+
+{{!-- 
+
+            City ST Zip:<br>
+        <input id = "citystatezip" type="text" name="citystatezip"><br> --}}
+
+ {{!-- <button type="submit">Submit</button> --}}

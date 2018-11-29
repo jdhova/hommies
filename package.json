@@ -1,0 +1,23 @@
+{
+  "name": "hommies",
+  "version": "1.0.0",
+  "description": "Real Estate/Social Media",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jude OKAGU",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.1.3",
+    "cookie-parser": "^1.4.3",
+    "cookies": "^0.7.3",
+    "express": "^4.16.4",
+    "hbs": "^4.0.1",
+    "mongoose": "^5.3.13",
+    "node-zillow": "^2.0.0",
+    "nodemon": "^1.18.6"
+  }
+}
