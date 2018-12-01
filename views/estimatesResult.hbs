@@ -29,7 +29,7 @@
                   {{/each}}  
 
                 <div class = "house">
-                    <h3>Address: {{address}} </h3> 
+                    <h3>Address: {{address}}</h3> 
                     
                     <ul style="list-style-type:none">
                         <li><p>Property Value: $ {{zestimateval}}</p></li>
@@ -38,14 +38,24 @@
                         <li><p>30 days Value change: $ {{valuechange}}</p></li>
                         <li><p>Neigbourhood Type:{{neigborhoodtype}}</p></li>
                         <li><p>Counnty :{{neigborhood}}</p></li>
+                        <li><button class ="btnn" onclick=`location.href='/listed-bookmark?zpid={{zpid}}'`>Bookmark this listing</button></li>  
+                        <a href="/listed-bookmark?zpid={{zpid}}">List booking</a>
+                        {{!-- {{#if (loggedIn == 'true')}}
+                            <li><button class ="btnn" onclick="location.href='/bookmarks?userId={{userId}}&propValue={{zestimateval}}
+                            &highestval={{highestimate}}&Zindexval={{indexvalue}}&valuechange={{valuechange}}
+                            &neigbtyp={{neigborhoodtype}}&county={{neigborhood}}'">Bookmark this listing</button></li>
+                        {{else}}
+                            <li><button class ="btnn" onclick="location.href='/login'">Bookmark this listing</button></li>  // bug not working 
+                        {{/if}} --}}
+
                     </ul>
                 </div>
             </div>
-            
+
 
         <div class"compare">
             <h4>Compare homes value and Map</h4>
-            <p> <a href="{{comparable}}">Compare homes</a> <br></p>
+            <p> <a href="{{comparable}}">Compare homes</a><br></p>
             <p><a href="{{mapthishome}}">Map homes</a> <br></p>
         </div>
          
@@ -53,11 +63,9 @@
              <h4>mark this home</h4>
             
 
-            <button class ="btnn" onclick="location.href='/login'">LOGIN</button> 
 
             <button class ="btnn" onclick="location.href='/signup'">SIGNUP</button> 
-
-           
+   
         </div>
 
     </div>

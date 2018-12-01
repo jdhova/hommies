@@ -52,8 +52,10 @@ const Bookmarks = mongoose.model('Bookmarks', new Schema({
         lastname: String,
         username: String,
         password: String,
-        Bookmarks : [ { type : mongoose.Schema.Types.ObjectId, ref: 'Bookmarks' } ]
+        Bookmarks : [String],
+        listed: String  // how to link Users and new ID with mongoose
     }), 'users');
+
 
 // static files
 app.use(express.static("public"));
@@ -69,23 +71,86 @@ app.set('view engine', 'hbs');
 
 //API  Routes
 app.get("/estimates", function(req, res) {
-    res.render("estimates", {login: "Log In",signup: "Sign Up"})  
+    res.render("estimates", {login: "Login",signup: "Signup"})  
 })
+
 
 // Login and Signup get routes
 
 app.get("/login", function(req, res) {
-    res.render("login", {login: "Log In", signup: "Sign Up"})  
+    res.render("login", {login: "Log In", signup: "SignUp"})  
 })
 
 app.get("/signup", function(req, res) {
     res.render("signup", {login: "Log In", signup: "Sign Up"})  
 })
 
+app.get("/bookmarks", function(req, res) {
+    res.render("bookmarksresult")  
+    // dont know if i can redirect to login hbs? yes but cant send data with redirect
+})
 
-app.get("/Bookmarks", function(req, res) {
-    res.redirect("login",{login: "Log In", signup: "Sign Up"})  
-    // dont know if i can redirect to login hbs?
+app.get("/bookmarksresult", function(req, res) {
+    res.render("bookmarksresult",{login: "Log In", signup: "Sign Up"})  
+   // res.send("working")
+
+})
+
+// app.get("/bookmarks", function(req, res) {
+//     res.render("bookmarksresult")  
+////////////////////
+
+// app.get('/bookmarksresult',function (req,res) {
+
+//     let params = {zpid}
+//     params["zws-id"] = "X1-ZWz1grjn2l63nv_4234r"
+//      zillow.get("GetSearchResults", params)
+//      .then( result => ('newpage',
+//         { zestimateval: result.response.results.result[0].zestimate[0].amount[0]["_"], 
+//         address:     result.response.results.result[0].address[0].street[0],
+//         mapthishome : result.response.results.result[0].links[0].mapthishome[0],
+//         comparable : result.response.results.result[0].links[0].comparables[0],
+//         highestimate: result.response.results.result[0].zestimate[0].valuationRange[0].high[0]["_"],
+//         lowestimate : result.response.results.result[0].zestimate[0].valuationRange[0].high[0]["_"],
+//         valuechange :  result.response.results.result[0].zestimate[0].valueChange[0]["_"],
+//         neigborhoodtype : result.response.results.result[0].localRealEstate[0].region[0].$.type,
+//         neigborhood : result.response.results.result[0].localRealEstate[0].region[0].$.name,
+//         indexvalue : result.response.results.result[0].localRealEstate[0].region[0].zindexValue[0],}
+
+//     })
+//     })
+
+
+
+///////////////////////
+
+
+
+app.get("/listed-bookmark", (req,res) =>{
+    // console.log("user id", req.signedCookies.userId)
+    // console.log("zpid", req.query.zpid)
+    if(req.signedCookies.loggedIn === "true"){
+        //first save bookmark to db.
+        //which bookmark, which user?
+        Users.findOneAndUpdate({_id: req.signedCookies.userId}, {"$push":{ Bookmarks: req.query.zpid}}, (err, result)=>{
+            // console.log(result)
+
+        });
+         // console.log(result)
+       //console.log(zpid)
+       //res.send("You saved the bookmark")
+       res.render('bookmarksresult')
+    }
+
+    else {
+        res.redirect("/login")
+    }
+
+    /*
+    if logged in save listening and render a page
+    else redirect to /login
+    */
+
 })
 
 
@@ -94,17 +159,22 @@ app.get("/Bookmarks", function(req, res) {
 
 app.post('/estimates',function (req,res) {
 
+ 
+
+   
+
     let params = {
         address: req.body.address,
         citystatezip: req.body.citystatezip
     }
+
     params["zws-id"] = "X1-ZWz1grjn2l63nv_4234r"
      
     zillow.get("GetSearchResults", params)
     .then( result => {
+       // console.log(result)
         
-        
-        res.render('estimatesResult',{
+        res.render('estimatesResult', {
             zestimateval: result.response.results.result[0].zestimate[0].amount[0]["_"], 
             address:     result.response.results.result[0].address[0].street[0],
             mapthishome : result.response.results.result[0].links[0].mapthishome[0],
@@ -115,22 +185,57 @@ app.post('/estimates',function (req,res) {
             neigborhoodtype : result.response.results.result[0].localRealEstate[0].region[0].$.type,
             neigborhood : result.response.results.result[0].localRealEstate[0].region[0].$.name,
             indexvalue : result.response.results.result[0].localRealEstate[0].region[0].zindexValue[0],
-            login: "Log In", 
-            signup: "Sign Up"
+            zpid: result.response.results.result[0].zpid,
+            
         })
-    })
-    .catch(error=> {  
+     })
+    .catch(err => {
+        console.log(err)
+        res.send('error')  
     })  
-
 })
+ 
+    // Cookie Route Set Cookie
 
+app.get('/estimates', (req,res)=>{
+    // Set cookie
+    res.cookie('loggedIn','juud') // options is optional
+    res.cookie('userId','5bf2e4cfd64ab80eb4e30c00') // options is optional  // why should this be in numbers
 
-
+    res.render('login')
+})
 
 //  Signup Post Routes
 
-app.post("/signup", function(req, res) {
+app.post('/bookmarksimput', (req, res) => {
 
+    var loggedIn = req.signedCookies['loggedIn']
+    var userId = req.signedCookies['userId']
+   
+    if(req.cookies.loggedIn === "false") {
+       // console.log("run")
+       
+       res.render("signup")
+
+    } 
+    else {
+        const { firstname, lastName, username,password } = req.body;
+        const newUsers = new Users({ firstname, lastName, username, password })
+        newUsers.save()
+            .then((users) => {
+            res.redirect('/login')
+            })
+            .catch((error) => {
+            console.log(error)
+        })
+    }
+});
+
+
+
+
+app.post("/signup", function(req, res) {
+    // console.log("hi")
     bcrypt.hash(req.body.password, 5, function(err, hash) {
         if (err) {
             res.end("error");
@@ -148,9 +253,9 @@ app.post("/signup", function(req, res) {
                 res.send ("no way")
             }
             else {
-              //  res.render('/sign-up') 
+             
               res.redirect('login')
-               // res.send("thanks for siginig up!")   // and render the login page
+             
             }
         })
 
@@ -162,6 +267,7 @@ app.post("/signup", function(req, res) {
  // Login Post Route
 
  app.post ("/login", function (req ,res) {
+     
         
     var password = req.body.password
     const username = req.body.username 
@@ -180,7 +286,9 @@ app.post("/signup", function(req, res) {
               //  console.log("sjjsjsjjjs",match)
                 if (match) {
                     res.cookie("loggedIn", "true", {signed: true})
-                    res.redirect("loginresult") 
+                    res.cookie('userId', result[0]._id, {signed: true}) // options is optional
+
+                    res.redirect("/estimates") 
                     }
                 // else{
                 //     //password is wrong
@@ -189,6 +297,7 @@ app.post("/signup", function(req, res) {
         }
     }) 
 })
+
 
 
 

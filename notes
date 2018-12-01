@@ -82,3 +82,36 @@ Question
 
 how to i set the Nav bar handle bar on all pages
 the login link does not display
+
+amid for html to make faster
+
+
+TO CREATE BOOKMARK FUNCTIONALITY
+
+create a bookmark model 
+    address
+    property value
+    zindex value ...
+
+alter your user model with a relation
+    bookmarks: [{type: ObjectId, ref: "bookmarks}]
+
+On click on "bookmark" create bookmark and afterwards set the relation by adding the ObjectId of the bookmark you've just created
+to the bookmark array of user
+
+to display all bookmarks of a certain user. Find the user and use the following method: ".populate("bookmarks)"
+
+
+Question
+Find out if the user is loged i or not and get the userid
+the functions not closing
+
+need to reconfirm if the cookies and id are defined
+
+why does the userID need to be in numbers
+
+
+
+
+
+
