@@ -76,6 +76,7 @@ app.get("/estimates", function(req, res) {
 
 
 // Login and Signup get routes
+// hallosds
 
 app.get("/login", function(req, res) {
     res.render("login", {login: "Log In", signup: "SignUp"})  
