@@ -12,7 +12,7 @@ app.use(cookieParser("juuuuude"))
 
 
 // MongoDB Connect
-mongoose.connect('mongodb://localhost/video', {
+mongoose.connect('mongodb://localhost/hommiesproject', {
     usedNewUrlParse : true
 })
 
@@ -70,6 +70,11 @@ app.set('views', __dirname + '/views');   // handle bars
 app.set('view engine', 'hbs');
 
 //API  Routes
+
+app.get("/", function(req, res) {
+    res.render("estimates", {login: "Login",signup: "Signup"})  
+})
+
 app.get("/estimates", function(req, res) {
     res.render("estimates", {login: "Login",signup: "Signup"})  
 })
@@ -97,49 +102,18 @@ app.get("/bookmarksresult", function(req, res) {
 
 })
 
-// app.get("/bookmarks", function(req, res) {
-//     res.render("bookmarksresult")  
-////////////////////
-
-// app.get('/bookmarksresult',function (req,res) {
-
-//     let params = {zpid}
-//     params["zws-id"] = "X1-ZWz1grjn2l63nv_4234r"
-//      zillow.get("GetSearchResults", params)
-//      .then( result => ('newpage',
-//         { zestimateval: result.response.results.result[0].zestimate[0].amount[0]["_"], 
-//         address:     result.response.results.result[0].address[0].street[0],
-//         mapthishome : result.response.results.result[0].links[0].mapthishome[0],
-//         comparable : result.response.results.result[0].links[0].comparables[0],
-//         highestimate: result.response.results.result[0].zestimate[0].valuationRange[0].high[0]["_"],
-//         lowestimate : result.response.results.result[0].zestimate[0].valuationRange[0].high[0]["_"],
-//         valuechange :  result.response.results.result[0].zestimate[0].valueChange[0]["_"],
-//         neigborhoodtype : result.response.results.result[0].localRealEstate[0].region[0].$.type,
-//         neigborhood : result.response.results.result[0].localRealEstate[0].region[0].$.name,
-//         indexvalue : result.response.results.result[0].localRealEstate[0].region[0].zindexValue[0],}
-
-//     })
-//     })
-
-
-
-///////////////////////
 
 
 
 app.get("/listed-bookmark", (req,res) =>{
-    // console.log("user id", req.signedCookies.userId)
-    // console.log("zpid", req.query.zpid)
+   
     if(req.signedCookies.loggedIn === "true"){
-        //first save bookmark to db.
-        //which bookmark, which user?
+       
         Users.findOneAndUpdate({_id: req.signedCookies.userId}, {"$push":{ Bookmarks: req.query.zpid}}, (err, result)=>{
-            // console.log(result)
+            
 
         });
-         // console.log(result)
-       //console.log(zpid)
-       //res.send("You saved the bookmark")
+        
        res.render('bookmarksresult')
     }
 
@@ -303,6 +277,6 @@ app.post("/signup", function(req, res) {
 
 
 
-app.listen(3000, () => {
+app.listen(3002, () => {
     console.log("hello working")
 });
